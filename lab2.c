@@ -18,6 +18,11 @@ void addChar();
 void getChar();
 void getNonBlank();
 int lex();
+void expr(void);
+void term(void);
+void factor(void);
+void error(void);
+
 /* Character classes */
 #define LETTER 0
 #define DIGIT 1
@@ -35,24 +40,15 @@ int lex();
 /******************************************************/
 /* main driver */
 int main(void) {
-      /* Open the input data file and process its contents */
-      // if ((in_fp = fopen("test1.txt", "r")) == NULL)
-      //       printf("ERROR - cannot open front.in \n");
-      // else {
-      //       getchar();
-      //       do {
-      //             lex();
-      //       } while (nextToken != EOF);
-      // }
-
-      //for the parser main
-      printf("hello----------------------------------------------------");
-      if ((in_fp = fopen("test1.txt", "r")) == NULL){
+      if ((in_fp = fopen("test3.txt", "r")) == NULL){
             printf("ERROR - cannot open front.in \n");
       }
       else {
-        lex();
-        void expr();
+            printf("\nTest 3 File\n");
+            do {
+                  lex();
+                  expr();
+            } while (nextToken != EOF);
       }
       return 0;
 }
@@ -195,7 +191,7 @@ int lex() {
 void expr(void){
       printf("Enter <expr>\n");
 
-      void term();
+      term();
 
       while(nextToken == 21 || nextToken == 22){
             lex();
@@ -203,19 +199,17 @@ void expr(void){
       }
 
       printf("Exit <expr>\n");
-      return;
 }
 
 void term(void){
       printf("Enter <term>\n");
-      void factor();
+      factor();
       while(nextToken == 23 || nextToken == 24){
-            nextToken = lex();
+            lex();
             factor();
       }
 
       printf("Exit <term>\n");
-      return;
 }
 
 void factor(void){
@@ -227,20 +221,23 @@ void factor(void){
 
       else if(nextToken == 25){
             lex();
-            void expr();
+            expr();
 
             if(nextToken == 26){
                   lex();
             }
             else{
-                  printf("Syntax Error");
+                  error();
             }
       }
       else{
-            printf("Syntax Error");
+            error();
       }
 
       printf("Exit<factor>\n");
-      return;
+}
+
+void error(void){
+    printf("SYNTAX ERROR\n");
 }
 
